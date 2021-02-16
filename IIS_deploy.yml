@@ -1,5 +1,5 @@
 ---
-- name: Install and configure IIS
+- name: Deploy artifact on IIS
   hosts: all
   gather_facts: no
 

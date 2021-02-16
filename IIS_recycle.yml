@@ -5,4 +5,4 @@
 
   tasks:
     - name: restart app pool
-      win_shell: Restart-WebAppPool DefaultAppPool
+      win_shell: Restart-WebAppPool "{{ appPoolName }}"
