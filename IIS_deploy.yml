@@ -1,0 +1,31 @@
+---
+- name: Install and configure IIS
+  hosts: all
+  gather_facts: no
+
+  tasks:
+    - name: create website directory if it doesnt exist
+      ansible.windows.win_file:
+        path: "{{ IIS_path }}"
+        state: directory
+
+    - name: copy artifact to the server
+      win_copy:
+        src: "{{ artifactsrcPath }}"
+        dest: "{{ artifactdestPath }}"
+        remote_src: no
+
+    - name: extract artifact on the server
+      win_unzip:
+        src: "{{ artifactdestPath }}"
+        dest: "{{ extractLocation }}"
+
+    - name: Add webapp on IIS
+      win_iis_website:
+        name: Default Web Site 
+        port: 80
+        ip: '*'
+        hostname: '*'
+        state: started
+        application_pool: "{{ appPoolName }}"
+        physical_path: "{{ extractLocation }}"

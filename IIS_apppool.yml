@@ -1,0 +1,16 @@
+---
+- name: Manage IIS app pools
+  hosts: all
+  gather_facts: no
+
+  tasks:
+  - name: Manage child element and set identity of application pool
+    community.windows.win_iis_webapppool:
+      name: "{{ appPoolName }}"
+      state: "{{ appPoolState }}"
+      attributes:
+        managedPipelineMode: "{{ appPoolManagedPipelineMode }}"
+        processModel.identityType: "{{ appPoolIdentityType }}"
+        processModel.userName: '{{ansible_user}}'
+        processModel.password: '{{ansible_password}}'
+        processModel.loadUserProfile: true

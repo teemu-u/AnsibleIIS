@@ -1,0 +1,8 @@
+---
+- name: Install and configure IIS
+  hosts: all
+  gather_facts: no
+
+  tasks:
+    - name: restart app pool
+      win_shell: Restart-WebAppPool DefaultAppPool
