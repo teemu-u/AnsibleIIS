@@ -7,7 +7,7 @@
     - name: Install IIS
       ansible.windows.win_feature:
         name: Web-Server
-        state: present
+        state: "{{ state }}"
         include_sub_features: yes
         include_management_tools: yes
       register: win_feature
